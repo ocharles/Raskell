@@ -26,6 +26,7 @@ register v = pageLayout $ do
     fieldRow passwordV "p1" "Password:" inputPassword
     fieldRow passwordV "p2" "Confrim Password:" inputPassword
     H.p $ errorList "password" v
+    errorList "" v
     H.p $
       H.input ! A.type_ "submit" ! A.value "Register"
 
@@ -60,3 +61,8 @@ landing user = pageLayout $ do
     Nothing -> do
       H.p "To use Raskell, you will first need to create a Raskell account:"
       H.a ! A.class_ "big-button" ! A.href "/register" $ "Register a Raskell Account"
+
+      H.p $ do
+        "Already have a Raskell account? "
+        H.a ! A.href "/login" $ "Login"
+        " to get started."

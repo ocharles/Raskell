@@ -16,6 +16,7 @@ import qualified Raskell.View as V
 import           Snap.Blaze
 import           Snap.Core
 import           Snap.Snaplet
+import           Snap.Snaplet.PostgresqlSimple (commit)
 import           Snap.Snaplet.Session.Common
 import           Snap.Snaplet.Auth
 import           Text.Digestive.Snap
@@ -32,11 +33,12 @@ toggleRating = do
     Just key -> do
       login' <- with db $ DB.resolveKeyToName key
       case login' of
-        Just login -> do
+        Just lName -> do
           project' <- textParam "project"
           case project' of
-            Just project ->
-              writeJSON =<< (with db $ DB.toggleRating (Rating login project))
+            Just project -> do
+              writeJSON =<< (with db $ DB.toggleRating (Rating lName project))
+              with db $ commit
             _ -> errorInvalid
         _ -> errorInvalid
     _ -> errorInvalid
@@ -70,10 +72,18 @@ register = do
         Right u' -> do
           gets rng >>= liftIO . mkCSRFToken >>=
             with db . DB.addKey (userLogin u') . Text.unpack
+          with db $ commit
           redirectToUser u'
     Nothing -> blaze $ V.register view
   where redirectToUser u =
           redirect $ (encodeUtf8 $ Text.append "/user/" $ userLogin u)
+
+login :: RaskellHandler ()
+login = do
+  (view, result) <- runForm "login" loginForm
+  case result of
+    Just _ -> redirect "/"
+    Nothing -> blaze $ V.login view
 
 installRaskell :: RaskellHandler ()
 installRaskell = do

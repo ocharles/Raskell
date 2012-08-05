@@ -20,7 +20,7 @@ routes = [ ("/ws/toggle-rating", method GET toggleRating <|> method OPTIONS (ret
          , ("/raskell.user.js", installRaskell)
          , ("/raskell.css", serveFile "userscript/raskell.css")
          , ("/register", register)
-         , ("/test", installRaskell)
+         , ("/login", login)
          , ("/", landing)
          ]
 

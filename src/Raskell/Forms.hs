@@ -21,8 +21,8 @@ data Login = Login
     , loginPassword :: Text
     }
 
-registrationForm :: Monad m => Form Html m Registration
-registrationForm =
+registrationForm :: Form Html RaskellHandler Registration
+registrationForm = checkM "This username already exists" loginNotTaken $
     Registration
       <$> "username" .: text Nothing
       <*> "password" .: passwordConfirmer
@@ -31,6 +31,8 @@ registrationForm =
                               <*> ("p2" .: text Nothing)
         fst' (p1, p2) | p1 == p2  = Success p1
                       | otherwise = Error "Passwords must match"
+        loginNotTaken (Registration login _) =
+          with auth $ fmap not (usernameExists login)
 
 loginForm :: Form Html RaskellHandler AuthUser
 loginForm =
