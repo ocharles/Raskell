@@ -1,0 +1,46 @@
+* Raskell
+
+Raskell is a standalone website to help collect ratings of libraries on Hackage,
+and also a user script that people can install in their browser to submit/view
+ratings as they browse Hackage. Hopefully this will help new users find out what
+are popular packages.
+
+
+* Todo
+** Schema
+
+
+** Data Access
+*** DONE Handle exceptions with duplicate ratings
+
+
+** Web Handlers
+*** DONE Return responses as application/json
+*** TODO Return correct HTTP status code bad input
+*** TODO Return error messages as JSON
+
+
+** User Script
+*** DONE Make loading the script non-blocking
+
+
+** Web Interface
+*** TODO Show overall top packages
+*** TODO Show 'most active' packages (biggest rating delta in the last week)
+*** TODO Show package history
+*** TODO Registration
+**** TODO Check existing accounts
+**** TODO Deny blank passwords
+
+
+** DONE Create a database schema
+** DONE Create methods to interact with the database
+** DONE Create web end points to submit ratings
+** DONE Create user script JavaScript
+** TODO Authentication (OAuth?)
+*** TODO Embed OAuth tokens inside the plugin itself when it's installed
+** TODO Integrate with Graphite to log usage
+** TODO Add a reaper daemon to purge invalid ratings (projects that don't exist)
+
+** TODO File bug about snaplet-postgresql timestamp types (should be =timestamptz=)
+** TODO File bug about snaplet-postgresql not storing user meta data

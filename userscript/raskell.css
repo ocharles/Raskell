@@ -1,0 +1,21 @@
+button.raskell-plus-one {
+    background: white;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    font-size: 60%;
+    margin-left: 0.5em;
+}
+
+button.raskell-plus-one:hover {
+    background: salmon;
+    border: 1px solid red;
+}
+
+button.raskell-rated {
+    background: salmon;
+    font-weight: bold;
+}
+
+button.raskell-i-rated {
+    background: gold !important;
+}
