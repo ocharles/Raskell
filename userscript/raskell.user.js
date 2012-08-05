@@ -15,7 +15,7 @@ function addJQuery(callback) {
 
 addJQuery(function() {
     var activateFor = new RegExp('\/package\/[^\/]+\/?$');
-    $.ajax('http://localhost:8000/ws/user-overview', {
+    $.ajax('http://raskell.ocharles.org.uk/ws/user-overview', {
         data: { user: "{{raskell-hash}}" },
         dataType: 'json',
         success: function(data) {
@@ -64,11 +64,11 @@ addJQuery(function() {
 
     $('body')
         .append('<link rel="stylesheet" type="text/css" \
-                       href="http://localhost:8000/raskell.css" />');
+                       href="http://raskell.ocharles.org.uk/raskell.css" />');
 
     $('button.raskell-plus-one').live('click', function() {
         var button = $(this);
-        $.ajax('http://localhost:8000/ws/toggle-rating', {
+        $.ajax('http://raskell.ocharles.org.uk/ws/toggle-rating', {
             data: { project: $(this).data('project'), user: '{{raskell-hash}}' },
             dataType: 'json',
             success: function(data) {
